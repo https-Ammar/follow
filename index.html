@@ -139,23 +139,157 @@
         }
 
         .loader {
-            border: 8px solid rgba(255, 255, 255, 0.2);
-            border-top: 8px solid #1a9cff;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+            --path: #2f3545;
+            --dot: #5628ee;
+            --duration: 3s;
+            width: 44px;
+            height: 44px;
+            position: relative;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+            animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg rect,
+        .loader svg polygon,
+        .loader svg circle {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg polygon {
+            stroke-dasharray: 145 76 145 76;
+            stroke-dashoffset: 0;
+            animation: pathTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader svg rect {
+            stroke-dasharray: 192 64 192 64;
+            stroke-dashoffset: 0;
+            animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader svg circle {
+            stroke-dasharray: 150 50 150 50;
+            stroke-dashoffset: 75;
+            animation: pathCircle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader.triangle {
+            width: 48px;
+        }
+
+        .loader.triangle:before {
+            left: 21px;
+            transform: translate(-10px, -18px);
+            animation: dotTriangle var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        @keyframes pathTriangle {
+            33% {
+                stroke-dashoffset: 74;
+            }
+
+            66% {
+                stroke-dashoffset: 147;
             }
 
             100% {
-                transform: rotate(360deg);
+                stroke-dashoffset: 221;
             }
+        }
+
+        @keyframes dotTriangle {
+            33% {
+                transform: translate(0, 0);
+            }
+
+            66% {
+                transform: translate(10px, -18px);
+            }
+
+            100% {
+                transform: translate(-10px, -18px);
+            }
+        }
+
+        @keyframes pathRect {
+            25% {
+                stroke-dashoffset: 64;
+            }
+
+            50% {
+                stroke-dashoffset: 128;
+            }
+
+            75% {
+                stroke-dashoffset: 192;
+            }
+
+            100% {
+                stroke-dashoffset: 256;
+            }
+        }
+
+        @keyframes dotRect {
+            25% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(18px, -18px);
+            }
+
+            75% {
+                transform: translate(0, -36px);
+            }
+
+            100% {
+                transform: translate(-18px, -18px);
+            }
+        }
+
+        @keyframes pathCircle {
+            25% {
+                stroke-dashoffset: 125;
+            }
+
+            50% {
+                stroke-dashoffset: 175;
+            }
+
+            75% {
+                stroke-dashoffset: 225;
+            }
+
+            100% {
+                stroke-dashoffset: 275;
+            }
+        }
+
+        .loader {
+            display: inline-block;
+            margin: 0 16px;
         }
 
         @media (max-width: 767px) {
@@ -185,27 +319,31 @@
         </div>
         <div class="profile-content">
             <h2 class="profile-name">
-                Sophie Bennett
+                Ammar Ahmed
                 <span class="verified-badge">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.707 8.293-4 4a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L10 12.586l3.293-3.293a1 1 0 011.414 1.414z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" fill-rule="evenodd"
+                            d="M21.007 8.27C22.194 9.125 23 10.45 23 12s-.806 2.876-1.993 3.73c.24 1.442-.134 2.958-1.227 4.05c-1.095 1.095-2.61 1.459-4.046 1.225C14.883 22.196 13.546 23 12 23c-1.55 0-2.878-.807-3.731-1.996c-1.438.235-2.954-.128-4.05-1.224c-1.095-1.095-1.459-2.611-1.217-4.05C1.816 14.877 1 13.551 1 12s.816-2.878 2.002-3.73c-.242-1.439.122-2.955 1.218-4.05c1.093-1.094 2.61-1.467 4.057-1.227C9.125 1.804 10.453 1 12 1c1.545 0 2.88.803 3.732 1.993c1.442-.24 2.956.135 4.048 1.227s1.468 2.608 1.227 4.05m-4.426-.084a1 1 0 0 1 .233 1.395l-5 7a1 1 0 0 1-1.521.126l-3-3a1 1 0 0 1 1.414-1.414l2.165 2.165l4.314-6.04a1 1 0 0 1 1.395-.232"
+                            clip-rule="evenodd" />
                     </svg>
                 </span>
             </h2>
-            <p class="profile-bio">A Product Designer focused on intuitive user experiences.</p>
+            <p class="profile-bio">Full Stack Developer & Web Designer delivering tailored digital solutions with
+                seamless user experiences.</p>
+
             <div class="profile-stats">
                 <div class="stat-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M12 2.5a5.5 5.5 0 00-5.5 5.5c0 2.97 1.62 5.483 4.295 6.745-.067.03-.135.055-.203.08a.987.987 0 00-.518.354c-1.895 1.895-3.074 4.14-3.074 6.736v.085h.01a11.13 11.13 0 004.814 1.155c.42-.016.84-.047 1.258-.093a10.05 10.05 0 00.12-.012 10.635 10.635 0 00.322-.053c.483-.082.963-.178 1.436-.289a10.97 10.97 0 00.316-.08c.45-.12.895-.25 1.332-.395.04-.015.077-.03.116-.046.368-.152.73-.314 1.087-.487.126-.062.25-.126.372-.19l.06-.03a.5.5 0 01.428-.01.5.5 0 01.32.195.5.5 0 01.077.345c.01.107.03.21.056.31h.004c.068.25.138.5.21.74a.455.455 0 01.034.12.5.5 0 01.432.49c.002.04.004.08.006.12.015.22.03.44.045.66.015.225.03.45.044.675a1 1 0 01-.225.864 1 1 0 01-.775.385c-.015 0-.03 0-.045 0-.255 0-.51-.01-.765-.025a.999.999 0 01-.89-.785c-.15-.45-.29-.91-.42-1.37-.13-.46-.255-.92-.375-1.38-.115-.455-.23-.91-.34-1.365a1 1 0 01-.06-.36 1 1 0 01.06-.37c-.01-.05-.02-.1-.03-.15a.999.999 0 01-.48-.68c-.1-.315-.205-.63-.31-.945-.1-.315-.2-.63-.305-.945-.1-.315-.2-.63-.305-.945z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0-8 0M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" />
                     </svg>
                     312
                 </div>
                 <div class="stat-item">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                        <path
-                            d="M10 2.5a7.5 7.5 0 017.5 7.5c0 2.97-1.62 5.483-4.295 6.745-.067.03-.135.055-.203.08a.987.987 0 00-.518.354c-1.895 1.895-3.074 4.14-3.074 6.736v.085h.01a11.13 11.13 0 004.814 1.155c.42-.016.84-.047 1.258-.093a10.05 10.05 0 00.12-.012 10.635 10.635 0 00.322-.053c.483-.082.963-.178 1.436-.289a10.97 10.97 0 00.316-.08c.45-.12.895-.25 1.332-.395.04-.015.077-.03.116-.046.368-.152.73-.314 1.087-.487.126-.062.25-.126.372-.19l.06-.03a.5.5 0 01.428-.01.5.5 0 01.32.195.5.5 0 01.077.345c.01.107.03.21.056.31h.004c.068.25.138.5.21.74a.455.455 0 01.034.12.5.5 0 01.432.49c.002.04.004.08.006.12.015.22.03.44.045.66.015.225.03.45.044.675a1 1 0 01-.225.864 1 1 0 01-.775.385c-.015 0-.03 0-.045 0-.255 0-.51-.01-.765-.025a.999.999 0 01-.89-.785c-.15-.45-.29-.91-.42-1.37-.13-.46-.255-.92-.375-1.38-.115-.455-.23-.91-.34-1.365a1 1 0 01-.06-.36 1 1 0 01.06-.37c-.01-.05-.02-.1-.03-.15a.999.999 0 01-.48-.68c-.1-.315-.205-.63-.31-.945-.1-.315-.2-.63-.305-.945-.1-.315-.2-.63-.305-.945z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+                        <path fill="currentColor"
+                            d="M464 512a48 48 0 1 0 96 0a48 48 0 1 0-96 0m200 0a48 48 0 1 0 96 0a48 48 0 1 0-96 0m-400 0a48 48 0 1 0 96 0a48 48 0 1 0-96 0m661.2-173.6c-22.6-53.7-55-101.9-96.3-143.3a444.4 444.4 0 0 0-143.3-96.3C630.6 75.7 572.2 64 512 64h-2c-60.6.3-119.3 12.3-174.5 35.9a445.4 445.4 0 0 0-142 96.5c-40.9 41.3-73 89.3-95.2 142.8c-23 55.4-34.6 114.3-34.3 174.9A449.4 449.4 0 0 0 112 714v152a46 46 0 0 0 46 46h152.1A449.4 449.4 0 0 0 510 960h2.1c59.9 0 118-11.6 172.7-34.3a444.5 444.5 0 0 0 142.8-95.2c41.3-40.9 73.8-88.7 96.5-142c23.6-55.2 35.6-113.9 35.9-174.5c.3-60.9-11.5-120-34.8-175.6m-151.1 438C704 845.8 611 884 512 884h-1.7c-60.3-.3-120.2-15.3-173.1-43.5l-8.4-4.5H188V695.2l-4.5-8.4C155.3 633.9 140.3 574 140 513.7c-.4-99.7 37.7-193.3 107.6-263.8c69.8-70.5 163.1-109.5 262.8-109.9h1.7c50 0 98.5 9.7 144.2 28.9c44.6 18.7 84.6 45.6 119 80c34.3 34.3 61.3 74.4 80 119c19.4 46.2 29.1 95.2 28.9 145.8c-.6 99.6-39.7 192.9-110.1 262.7" />
                     </svg>
                     48
                 </div>
@@ -217,8 +355,23 @@
     </div>
 
     <div class="loading-screen">
-        <div class="loader"></div>
-        <p>Optimizing for Mobile Experience...</p>
+        <div class="loader">
+            <svg viewBox="0 0 80 80">
+                <circle r="32" cy="40" cx="40" id="test"></circle>
+            </svg>
+        </div>
+
+        <div class="loader triangle">
+            <svg viewBox="0 0 86 80">
+                <polygon points="43 8 79 72 7 72"></polygon>
+            </svg>
+        </div>
+
+        <div class="loader">
+            <svg viewBox="0 0 80 80">
+                <rect height="64" width="64" y="8" x="8"></rect>
+            </svg>
+        </div>
     </div>
 
     <script>

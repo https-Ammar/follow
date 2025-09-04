@@ -28,7 +28,6 @@
             overflow: hidden;
             position: relative;
             backdrop-filter: blur(10px);
-            display: flex;
             flex-direction: column;
         }
 
@@ -45,6 +44,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transition: transform 0.1s ease-out;
         }
 
         .profile-content {
@@ -124,6 +124,59 @@
         .follow-button:hover {
             background: rgba(255, 255, 255, 0.3);
         }
+
+        .loading-screen {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            background-color: #121212;
+            color: #fff;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .loader {
+            border: 8px solid rgba(255, 255, 255, 0.2);
+            border-top: 8px solid #1a9cff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 767px) {
+            .profile-card {
+                display: flex;
+            }
+
+            .loading-screen {
+                display: none;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .profile-card {
+                display: none;
+            }
+
+            .loading-screen {
+                display: flex;
+            }
+        }
     </style>
 
     <div class="profile-card">
@@ -161,6 +214,11 @@
                 </button>
             </div>
         </div>
+    </div>
+
+    <div class="loading-screen">
+        <div class="loader"></div>
+        <p>Optimizing for Mobile Experience...</p>
     </div>
 
     <script>

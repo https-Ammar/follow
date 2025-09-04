@@ -375,18 +375,8 @@
     </div>
 
     <script>
-        const image = document.querySelector('.profile-image-container img');
-        const followButton = document.querySelector('.follow-button');
 
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', (e) => {
-                const beta = e.beta;
-                const gamma = e.gamma;
-                const moveX = gamma * -0.5;
-                const moveY = beta * 0.5;
-                image.style.transform = `translate3d(${moveX}px, ${moveY}px, 0)`;
-            }, true);
-        }
+        const followButton = document.querySelector('.follow-button');
 
         followButton.addEventListener('click', () => {
             if (followButton.innerText.trim() === 'Follow +') {
